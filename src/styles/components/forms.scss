@@ -1,0 +1,5 @@
+.form-control {
+   &::placeholder { /* Most modern browsers support this now. */
+      color: var(--bs-border-color)
+   }
+}

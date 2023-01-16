@@ -1,0 +1,34 @@
+:root[data-bs-theme='dark'] {
+  --bs-body-bg: #{$dark};
+  --bs-font-sans-serif: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+
+  --bs-heading-color: #{$light};
+  --bs-body-color: #{$light};
+  --bs-border-color: #{$dark-border};
+
+  --bs-form-control-bg: #{$dark};
+  --bs-form-input-color: #{$dark-border};
+  --bs-btn-bg: #{$dark-btn};
+
+  .btn {
+    --bs-btn-color: #{$light};
+  }
+  .btn-primary {
+    --bs-btn-color: #{$light};
+  }
+  .btn-default {
+    @include button-variant(
+      $dark-btn,
+      $dark-btn,
+      $hover-background: tint-color($dark-btn, $btn-hover-bg-shade-amount),
+      $hover-border: tint-color($dark-btn, $btn-hover-border-shade-amount),
+      $active-background: tint-color($dark-btn, $btn-active-bg-shade-amount),
+      $active-border: tint-color($dark-btn, $btn-active-border-shade-amount)
+    );
+    --bs-btn-color: #{$light};
+  }
+  .dropdown-menu {
+    --bs-dropdown-bg: #{$dark-btn};
+    --bs-dropdown-border-color: #{$dark-border};
+  }
+}

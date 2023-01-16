@@ -1,0 +1,14 @@
+.rollup-enter-active {
+    transition: all 0.3s ease-out;
+  }
+  
+  .rollup-leave-active {
+    transition: all 0.3s ease-out;
+  }
+  
+  .rollup-enter-from,
+  .rollup-leave-to {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }

@@ -1,0 +1,35 @@
+:root[data-bs-theme="light"] {
+    --bs-body-bg: #{$light};
+    --bs-font-sans-serif: 'Roboto', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"!important;
+    
+    --bs-heading-color: #{$dark};
+    --bs-body-color: #{$dark};
+    --bs-border-color: #{$light-border};;
+
+    --bs-form-control-bg: #{$light};
+    --bs-form-input-color: #{$light-border};
+    --bs-btn-bg: #{$light-btn};
+
+    .btn {
+      --bs-btn-color: #{$dark};
+    }
+    .btn-primary {
+      --bs-btn-color: #{$light};
+    }
+
+    .btn-default {
+      @include button-variant(
+        $light-btn,
+        $light-btn,
+        $hover-background: shade-color($light-btn, $btn-hover-bg-shade-amount),
+        $hover-border: shade-color($light-btn, $btn-hover-border-shade-amount),
+        $active-background: shade-color($light-btn, $btn-active-bg-shade-amount),
+        $active-border: shade-color($light-btn, $btn-active-border-shade-amount)
+      );
+      --bs-btn-color: #{$dark};
+    }
+    .dropdown-menu {
+      --bs-dropdown-bg: #{$light-btn};
+      --bs-dropdown-border-color: #{$light-border};
+    }
+  }

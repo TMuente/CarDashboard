@@ -1,24 +1,43 @@
-# car
+# Directus Vue Example
 
-## Project setup
-```
-npm install
-```
+This is a [Vue 3](https://v3.vuejs.org) project bootstrapped with [`create-vue`](https://github.com/vuejs/create-vue).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/directus/examples/tree/main/vue)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/directus/examples/tree/main/vue)
+## 📌 Prerequisites
 
-### Lints and fixes files
-```
-npm run lint
-```
+You will need to have the provided [Directus project](../directus) running first before proceeding with this example.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 🚀 Getting Started
+
+1. Clone this repo.
+
+2. Install dependencies for this example.
+
+   ```shell
+   cd vue
+   npm install
+   ```
+
+3. Create a `.env` file by copying the provided `.env.example` file.
+
+4. Start the development server.
+
+   ```shell
+   npm run dev
+   ```
+
+   Your Directus Vue example is now running at <http://localhost:3000>.
+
+## 🔗 Links
+
+### Directus
+
+- [Official Site](https://directus.io)
+- [Documentation](https://docs.directus.io)
+
+### Vue
+
+- [Official Site](https://v3.vuejs.org)
+- [Documentation](https://v3.vuejs.org/guide/introduction.html)
