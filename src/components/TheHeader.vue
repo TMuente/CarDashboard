@@ -1,32 +1,51 @@
 <template>
-  <header class="header container-xxl px-6 py-4">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-auto">
-        <TheLogo size="medium" />
-      </div>
-      <div class="col-auto pe-0">
-        <button class="btn" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
-          <i class="menu-icon bi bi-list"></i>
-        </button>
-      </div>
+  <header class="main-header">
+    <TheNav />
+    <div class="main-header-text container">
+      <h2 v-if="carStore.complete" class="main-header-text-name">Hallo {{ carStore.getUserName }}</h2>
+      <p class="accent h4">Willkommen in deinem Bereich</p>
     </div>
   </header>
 </template>
 
 <script>
-import TheLogo from '@/components/TheLogo.vue'
+import TheNav from '@/components/TheNav.vue'
+
+import { useCarStore } from '@/stores/carStore'
 
 export default {
   name: 'Header',
 
   components: {
-    TheLogo,
+    TheNav
+  },
+
+  setup() {
+    const carStore = useCarStore()
+
+    return {
+      carStore
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.menu-icon {
-  font-size: 2rem;
+.main-header {
+  background-color: $dark;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 400px;
+  padding-bottom: 1rem;
+
+  &-text {
+    color: $light;
+  }
+  &-text-name {
+    margin-bottom: 1rem;
+  }
 }
 </style>

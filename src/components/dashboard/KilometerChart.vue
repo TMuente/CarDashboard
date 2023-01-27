@@ -1,14 +1,14 @@
 <template>
   <div class="km-chart">
-    <h2>Kilometer Graph</h2>
+    <h3 class="title">Kilometer Graph</h3>
     <highcharts :options="options"></highcharts>
   </div>
 </template>
 
 <script>
 import { Chart } from 'highcharts-vue'
-// import { useMainStore } from '@/stores/carStore'
 import { computed } from 'vue'
+import { useCarStore } from '@/stores/carStore'
 
 export default {
   name: 'KilometerChart',
@@ -18,30 +18,22 @@ export default {
   },
 
   setup() {
-    const mainStore = useMainStore()
+    const carStore = useCarStore()
 
-    function parseDate(input) {
-      const parts = input.match(/(\d+)/g)
-      const newDate = Date.UTC(parts[2], parts[1] - 1, parts[0])
-      return newDate
+    function ToLocalDate(inDate) {
+      var date = new Date()
+      date.setTime(inDate.valueOf() - 60000 * inDate.getTimezoneOffset())
+      return date
     }
 
     const options = computed(() => {
       return {
         chart: {
-          type: 'spline',
+          // type: 'spline',
           zoomType: 'x'
         },
         title: {
-          text: 'Kilometer',
-          style: {
-            'font-family': 'Avenir, Helvetica, Arial, sans-serif',
-            '-webkit-font-smoothing': 'antialiased',
-            '-moz-osx-font-smoothing': 'grayscale',
-            'color': '#2c3e50',
-            'font-weight': 'bold',
-            'font-size': '100%'
-          }
+          text: '',
         },
         yAxis: {
           title: {
@@ -54,9 +46,14 @@ export default {
         xAxis: {
           type: 'datetime'
         },
+        legend: {
+          enabled: false
+        },
         tooltip: {
-          headerFormat: '<b>{series.data</b><br/>',
-          pointFormat: '{point.y} km'
+          formatter: function () {
+            const point = this.point
+            return `Datum: ${new Date(point.x).toLocaleDateString('de-DE')}<br/>Kilometer: ${point.y} km<br/>Preis: ${point.price} €<br/>Arbeiten: ${point.work}`
+          }
         },
         plotOptions: {
           area: {
@@ -68,7 +65,7 @@ export default {
                 y2: 1
               },
               stops: [
-                [0, '#f00'],
+                [0, '#000'],
                 [1, '#ff0']
               ]
             },
@@ -86,31 +83,25 @@ export default {
         },
         series: [
           {
-            name: 'Datum',
-            data: mainStore.getData.map((data) => {
-              return [parseDate(data.date), data.km, data.name]
+            data: carStore.getRepair.map((data) => {
+              let item = { y: data.km, x: Date.parse(data.date), work: data.items, price: data.price }
+              return item
             })
           }
         ]
       }
     })
 
-    return { mainStore, options, parseDate }
+    return { options, carStore }
   }
 }
 </script>
 
 <style lang="scss">
+.km-chart {
+  padding: 2rem;
+}
 .highcharts-background {
-
-}
-.highcharts-grid-line,
-.highcharts-axis-line {
- 
-}
-text {
-  fill: #fff !important;
-}
-.highcharts-tooltip-box, .highcharts-button-box {
+  fill: $light!important;
 }
 </style>

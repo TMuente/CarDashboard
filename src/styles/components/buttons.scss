@@ -1,5 +1,6 @@
-.btn {
-    &-wide {
-        padding: $input-padding-y 2rem;
-    }
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }

@@ -7,7 +7,7 @@ export const useCarStore = defineStore('car', {
     user: [],
     cars: [],
     repair: [],
-    selectedCarId: null,
+    selectedCar: '',
     complete: false
   }),
 
@@ -18,11 +18,17 @@ export const useCarStore = defineStore('car', {
     getUserName() {
       return this.user.first_name + ' ' + this.user.last_name
     },
+    getSelectedCar() {
+      return this.selectedCar
+    },
     getCars() {
       return this.cars
     },
-    getSelectedCarId() {
-      return this.selectedCarId
+    getRepair() {
+      return this.repair
+    },
+    getTotal() {
+      return this.repair.reduce((partialSum, repair) => partialSum + repair.price, 0);
     }
   },
 
@@ -51,11 +57,10 @@ export const useCarStore = defineStore('car', {
         })
 
         this.cars = response.data
-
         if (selectedCarCookie) {
-          this.selectedCarId = parseInt(selectedCarCookie)
+          this.selectedCar = response.data.find((car) => car.id === parseInt(selectedCarCookie))
         } else {
-          this.selectedCarId = parseInt(response.data[0].id)
+          this.selectedCar = response.data.find((car) => car.id === parseInt(response.data[0].id))
         }
       } catch (err) {
         console.log(err)
@@ -65,25 +70,28 @@ export const useCarStore = defineStore('car', {
     async fetchRepair() {
       try {
         const repair = directus.items('repair')
-
-        const response = await repair.readByQuery({
-          fields: ['*'],
-          filter: {
-            _and: [
-              { user_created: { _eq: '$CURRENT_USER' } },
-              { car: { _eq: this.selectedCarId } },
-            ]
-          },
-          limit: -1
-        })
-
-        this.repair = response.data
-
+        if (this.selectedCar.id) {
+          const response = await repair.readByQuery({
+            fields: ['*'],
+            filter: {
+              _and: [{ user_created: { _eq: '$CURRENT_USER' } }, { car: { _eq: this.selectedCar.id } }]
+            },
+            limit: -1
+          })
+          this.repair = response.data
+        }
+        this.complete = true
       } catch (err) {
         console.log(err)
+        this.repair = []
       } finally {
-
       }
+    },
+
+    setSelectedCar(event) {
+      // Repair items are getting fetched with a watcher in DashboardHomeViews
+      this.selectedCar = this.cars.find((car) => car.id === parseInt(event.target.value))
+      window.sessionStorage.setItem('selected-car', parseInt(event.target.value))
     }
   }
 })

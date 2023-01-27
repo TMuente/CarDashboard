@@ -1,5 +1,28 @@
-.form-control {
-   &::placeholder { /* Most modern browsers support this now. */
-      color: var(--bs-border-color)
-   }
+input, .input, input.input, input:-webkit-autofill {
+    background-color: $light!important;
+    border:1px solid $darker-light;
+    padding: 0.75rem;
+    width: 100%;
+    border-radius: $border-radius;
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+    outline: none;
+}    
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+button {
+    background-color: $darker-light;
+    border: 1px solid transparent;
+    padding: 0.75rem 2rem;
+    border-radius: $border-radius;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: all ease .3s;
+
+    &:hover {
+        background-color: darken($darker-light, 5%);
+    }
 }

@@ -1,33 +1,21 @@
 <template>
-  <div class="repair-table p-4">
-    <div class="row">
-      <div class="col-12"><h2>Liste aller Reparaturen</h2></div>
-      <div class="col-12 table table-striped-columns">
-        <div class="row p-3 border-bottom fw-bold d-none d-lg-flex">
-          <div class="col-2">Datum</div>
-          <div class="col">Arbeiten</div>
-          <div class="col-2">Kilometerstand</div>
-          <div class="col-1">Preis</div>
-          <div class="col-1">Rechnung</div>
-        </div>
-        <div class="row table-row p-3" v-for="(item, count) in repair">
-          <div class="col-4 d-lg-none">Datum:</div>
-          <div class="col-8 col-lg-2">{{ formatRelativeTime(item.date) }}</div>
-          <div class="col-4 d-lg-none">Name:</div>
-          <div class="col-8 col-lg">
-            {{ item.items }}
-          </div>
-
-          <div class="col-4 d-lg-none">Kilometerstand:</div>
-          <div class="col-8 col-lg-2">{{ item.km }} km</div>
-          <div class="col-4 d-lg-none">Preis:</div>
-          <div class="col-8 col-lg-1">{{ (Math.round(item.price * 100) / 100).toFixed(2) }} €</div>
-          <div class="col-4 d-lg-none">Rechnung:</div>
-          <div class="col-8 col-lg-1">
-            <a v-if="item.invoice" class="" :href="getAssetURL(item.invoice.filename_disk)" target="_blank"><i class="bi bi-download"></i></a>
-          </div>
-        </div>
-      </div>
+  <div class="repair-table">
+    <h3 class="title">Reparaturliste</h3>
+    <div class="repair-table-title">
+      <div class="repair-table-title-date">Datum</div>
+      <div class="repair-table-title-work">Arbeiten</div>
+      <div class="repair-table-title-km">Kilometerstand</div>
+      <div class="repair-table-title-location">Ort</div>
+      <div class="repair-table-title-price">Preis</div>
+      <div class="repair-table-title-invoice">Rechnung</div>
+    </div>
+    <div v-for="item in repair" class="repair-table-row">
+      <div class="repair-table-row-date"><span class="repair-table-row-mobiletitle">Datum:</span> {{ formatRelativeTime(item.date) }}</div>
+      <div class="repair-table-row-work"><span class="repair-table-row-mobiletitle">Arbeiten:</span> {{ item.items }}</div>
+      <div class="repair-table-row-km"><span class="repair-table-row-mobiletitle">Kilometerstand:</span> {{ item.km }} km</div>
+      <div class="repair-table-row-location"><span class="repair-table-row-mobiletitle">Ort:</span> {{ item.location }}</div>
+      <div class="repair-table-row-price"><span class="repair-table-row-mobiletitle">Preis:</span> {{ item.price }} €</div>
+      <div class="repair-table-row-invoice"><span class="repair-table-row-mobiletitle">Rechnung:</span> {{ item.invoice }}</div>
     </div>
   </div>
 </template>
@@ -52,23 +40,61 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.table-row {
-  &:hover {
-    cursor: pointer;
+.repair-table {
+  padding: 2rem;
+
+  &-title {
+    display: none;
+  }
+
+  &-row {
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+
+    & > div {
+      padding: 0.25rem 0;
+    }
+
+    &-mobiletitle {
+      width: 40%;
+      display: inline-block;
+    }
   }
 }
 
-.col-count {
-  flex: 0 0 auto;
-  width: 40px;
-}
-.col-date {
-  flex: 0 0 auto;
-  width: 100px;
-}
-.col-download {
-  flex: 0 0 auto;
-  width: 100px;
-  text-align: center;
+@media (min-width: $large-width) {
+  .repair-table {
+    &-title {
+      display: flex;
+      padding: 1rem 0;
+    }
+    &-row {
+      display: flex;
+    }
+
+    .repair-table-title-work, .repair-table-row-work {
+      flex: 1;
+    }
+    .repair-table-title-date, .repair-table-row-date {
+      flex: 0 0 100px
+    }
+    .repair-table-title-km, .repair-table-row-km {
+      flex: 0 0 150px
+    }
+    .repair-table-title-location, .repair-table-row-location {
+      flex: 0 0 100px
+    }
+    .repair-table-title-price, .repair-table-row-price {
+      flex: 0 0 100px
+    }
+    .repair-table-title-invoice, .repair-table-row-invoice {
+      flex: 0 0 100px
+    }
+
+
+    .repair-table-row-mobiletitle {
+      display: none;
+    }
+  }
 }
 </style>

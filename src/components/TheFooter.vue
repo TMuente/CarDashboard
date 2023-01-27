@@ -1,5 +1,5 @@
 <template>
-  <footer class="header container-xxl p-6">
+  <footer class="header container-fluid p-6">
     <div class="row align-items-center">
       <div class="col-auto"><TheLogo size="medium" /></div>
     </div>

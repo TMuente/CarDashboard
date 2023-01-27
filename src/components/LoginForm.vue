@@ -1,14 +1,14 @@
 <template>
   <div class="login-form">
-    <h2 class="mb-5">Anmelden</h2>
+    <h2 class="title">Anmelden</h2>
     <form ref="form" class="login-form-el">
-      <div class="mb-3">
-        <input type="email" class="form-control" id="email" placeholder="Email" />
+      <div class="">
+        <input type="email" class="input" id="email" placeholder="Email" />
       </div>
-      <div class="mb-3">
-        <input type="password" class="form-control" id="password" placeholder="Passwort" />
+      <div class="">
+        <input type="password" class="" id="password" placeholder="Passwort" />
       </div>
-      <button ref="submitButton" type="submit" class="btn btn-primary btn-wide">Anmleden</button>
+      <button ref="submitButton" type="submit" class="btn-light">Anmleden</button>
     </form>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
 
 <style lang="scss">
 .login-form {
-  width: 100%;
-  max-width: 310px;
+  width: 350px;
+  max-width: 350px;
 }
 </style>

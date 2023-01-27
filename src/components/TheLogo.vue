@@ -28,17 +28,17 @@ export default {
 <style scoped lang="scss">
 .main-logo {
   .color {
-    fill: var(--bs-body-color);
+    fill: $dark;
   }
 
   &.small {
     font-size: 16px;
   }
   &.medium {
-    width: 100px;
+    width: calc(100px + 1vw)
   }
   &.big {
-    width: 190px;
+    width: calc(190px + .3vw)
   }
 }
 </style>

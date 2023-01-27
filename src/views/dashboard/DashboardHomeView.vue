@@ -1,13 +1,21 @@
 <template>
-  <div class="dashboard container-xxl px-6">
-    <CarSelect />
+  <div class="dashboard container">
 
-    <div class="repair-section">
-      <Transition name="rollup">
-        <RepairTable v-if="carStore.repair.length > 0" />
-        <div v-else class="alert alert-info">Sie haben noch keine Reparaturen für dieses Fahrzeug eingetragen</div>
-      </Transition>
-    </div>
+    <section class="selected-section">
+      <SelectedCar v-if="carStore.cars.length > 0" />
+    </section>
+
+    <Transition name="rollup">
+      <div class="dashboard-content" v-if="carStore.repair.length > 0">
+        <section class="repair-section"><RepairTable /></section>
+        <section class="kmgraph-section">
+          <KilometerChart />
+        </section>
+      </div>
+
+      <section v-else class="no-repairs">Sie haben noch keine Reparaturen für dieses Fahrzeug eingetragen</section>
+    </Transition>
+
   </div>
 </template>
 
@@ -16,22 +24,24 @@ import { onMounted, watch } from 'vue'
 import { useCarStore } from '@/stores/carStore'
 import { storeToRefs } from 'pinia'
 
-import CarSelect from '@/components/dashboard/CarSelect.vue'
+import SelectedCar from '@/components/dashboard/SelectedCar.vue'
 import RepairTable from '@/components/dashboard/RepairTable.vue'
+import KilometerChart from '@/components/dashboard/KilometerChart.vue'
 
 export default {
   name: 'DashboardHome',
 
   components: {
-    CarSelect,
-    RepairTable
+    SelectedCar,
+    RepairTable,
+    KilometerChart
   },
 
   setup() {
     const carStore = useCarStore()
-    const { selectedCarId } = storeToRefs(carStore)
+    const { selectedCar } = storeToRefs(carStore)
 
-    watch(selectedCarId, (newCar, oldCar) => {
+    watch(selectedCar, (newCar, oldCar) => {
       carStore.fetchRepair()
     })
 
@@ -41,8 +51,22 @@ export default {
 
     return {
       carStore,
-      selectedCarId
+      selectedCar
     }
   }
 }
 </script>
+
+<style lang="scss">
+.dashboard {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.selected-section,
+.repair-section {
+  margin-bottom: 2rem;
+}
+.no-repairs {
+  padding: 2rem;
+}
+</style>

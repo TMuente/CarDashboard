@@ -1,8 +1,6 @@
 <template>
   <TheHeader />
-  <router-view v-if="carStore.cars.length > 0" style="min-height: 60vh;"/>
-  <TheFooter />
-  <OffcanvasMenu />
+  <router-view />
 </template>
 
 <script>
@@ -10,27 +8,27 @@ import { onMounted } from 'vue'
 import { useCarStore } from '@/stores/carStore'
 
 import TheHeader from '@/components/TheHeader.vue'
-import TheFooter from '@/components/TheFooter.vue'
 import LogoutForm from '@/components/LogoutForm.vue'
-import OffcanvasMenu from '@/components/OffcanvasMenu.vue'
+import { storeToRefs } from 'pinia'
 
 export default {
   components: {
     LogoutForm,
-    TheHeader,
-    TheFooter,
-    OffcanvasMenu
+    TheHeader
   },
 
   setup() {
     const carStore = useCarStore()
+    const { user } = storeToRefs(carStore)
 
     onMounted(() => {
       carStore.fetchUser()
       carStore.fetchCars()
     })
 
-    return { carStore }
+    return { carStore, user  }
   }
 }
 </script>
+
+<style lang="scss"></style>

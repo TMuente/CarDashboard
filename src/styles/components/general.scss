@@ -1,0 +1,54 @@
+body, html {
+    background-color: $darker-light;
+    font-size: calc(.95rem + .05vw);
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h1, .h1 {
+    font-size: 2.5rem;
+}
+
+h2, .h2 {
+    font-size: calc(1.66rem + .3vw);
+}
+
+h3, .h3 {
+    font-size: calc(1.36rem + .3vw);
+}
+
+h4, .h4 {
+    font-size: calc(1.25rem + .3vw);
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.container {
+    padding-left: calc(1rem + 2vw);
+    padding-right: calc(1rem + 2vw);
+    max-width: 1280px;
+    width: 100%;
+}
+
+section {
+    background-color: $light;
+    box-shadow: 0 0 10px -3px #d3dade;
+    border-radius: $border-radius;
+    overflow: hidden;
+}
+
+@media (min-width: $max-width) {
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: calc(2.75rem);
+        padding-right: calc(2.75rem);
+    }
+    
+}

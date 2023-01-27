@@ -1,15 +1,13 @@
 <template>
-  <div class="login container-fluid">
-    <div class="row">
-      <div class="login-form-col col-12 col-lg-6 px-6">
-        <TheLogo size="big" class="login-logo" />
-        <LoginForm class="login-form-space" />
-      </div>
-      <div class="login-video-col col-12 col-lg-6 p-0 d-none d-lg-block">
-        <video ref="video" v-if="getAssetURL(generalStore.data.login_video)" id="intro-video" class="intro-video" autoplay muted loop playsinline :poster="getAssetURL(generalStore.data.login_image.id)">
-          <source v-if="getAssetURL(generalStore.data.login_video)" :src="getAssetURL(generalStore.data.login_video.id)" type="video/webm" />
-        </video>
-      </div>
+  <div class="login-view">
+    <div class="login-form-view container">
+      <TheLogo size="big" class="login-logo" />
+        <LoginForm class="login-form-container" />
+    </div>
+    <div class="login-video-container">
+      <video ref="video" v-if="getAssetURL(generalStore.data.login_video)" id="intro-video" class="intro-video" autoplay muted loop playsinline :poster="getAssetURL(generalStore.data.login_image.id)">
+        <source v-if="getAssetURL(generalStore.data.login_video)" :src="getAssetURL(generalStore.data.login_video.id)" type="video/webm" />
+      </video>
     </div>
   </div>
 </template>
@@ -46,12 +44,16 @@ export default {
 </script>
 
 <style lang="scss">
+.login-view {
+  background-color: $light;
+}
+
 .login-logo {
   position: absolute;
   top: 5rem;
 }
 
-.login-form-col {
+.login-form-view {
   height: 100vh;
   display: flex;
   align-items: center;
@@ -59,17 +61,32 @@ export default {
   flex-wrap: wrap;
   flex-direction: column;
 }
+.login-form-container {
+  padding: 2rem;
+}
 
-.login-video-col {
+.login-video-container {
   height: 100vh;
   position: fixed;
   right: 0;
   top: 0;
+  display: none;
+  width: 50vw;
 }
 
 .intro-video {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+@media only screen and (min-width: $medium-width) {
+  .login-video-container {
+    display: block;
+  }
+  .login-form-view.container {
+    width: 50vw;
+    margin: 0 !important;
+  }
 }
 </style>
